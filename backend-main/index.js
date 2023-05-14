@@ -40,6 +40,9 @@ con.connect((err) => {
 });
 
 app.use('/auth', centralAuth({"baseRoute": "auth"}), require('./api/auth.js'));
+app.use('/home', centralAuth({"baseRoute": "home"}), require('./api/home.js'));
+app.use('/admin', centralAuth({"baseRoute": "admin"}), require('./api/admin.js'));
+app.use('/user', centralAuth({"baseRoute": "user"}), require('./api/user.js'));
 
 app.listen(8000, () => {
     console.log("Server running at port 8000");

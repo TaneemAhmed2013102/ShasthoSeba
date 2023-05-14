@@ -50,7 +50,7 @@ function Navbar() {
               Login
             </a>
           </div>
-          <a href="/post/new">
+          <a href="/admin">
             <button className="btn btn-lg btn-light">Inquiry</button>
           </a>
         </div>
