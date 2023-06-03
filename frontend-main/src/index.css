@@ -147,14 +147,34 @@ button:hover {
   padding: 1rem;
 }
 
+.containertext{
+  background-color: #115173;
+  margin-top: 100px;
+  height: 300px;
+  text-align: center;
+}
+
+.detail_container {
+  max-width: 65%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
 .required{
   color:red;
 }
+
 
 .navbar-brand {
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.navbar-brand .mail {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: lowercase;
 }
 
 .navbar-nav .nav-link {
@@ -171,4 +191,240 @@ button:hover {
     margin-left: 0;
   }
 }
+
+.containerlog {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 100px;
+  height: 50vh;
+}
+
+.cardlog {
+  background-color: white;
+  border: 6px solid #083248;
+  border-radius: 5px;
+  margin-top: 5rem;
+  padding: 50px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.cardlog:hover {
+  transform: scale(1.05);
+}
+
+h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.containerhome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: -140px;
+  height: 50vh;
+}
+
+.containertime {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  height: 50vh;
+}
+
+.details{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.home {
+  display: flex;
+}
+
+.homeh{
+  color:#0b3767;
+  align-items: center;
+}
+
+.column {
+  flex-basis: 50%;
+}
+
+
+/*SIDDHARTHA*/
+
+.sidebarpat {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  padding: 2rem;
+  background-color: #083248;
+  color: white;
+  position: fixed;
+  left: 0;
+}
+
+.patientimg{
+  border-radius: 50%;
+}
+
+.logo{
+  letter-spacing: 2;
+}
+
+.menus {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.menus a{
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.menus ion-icon{
+  margin-right: 0.5rem;
+}
+
+.menus a:hover{
+  color: red;
+}
+
+/*Rifat*/
+
+.scheduler-container {
+  width: 500px;
+  height: 100%;
+  margin: 0 auto;
+  background-color: #cbf0df;
+  padding: 20px;
+}
+
+.scheduler-heading {
+  text-align: center;
+  text-transform: uppercase;
+  text-size-adjust: 30px;
+  font-style: italic;
+  color: #cbf0df ;
+  background-color: #0056b3;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.scheduler-input {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(196, 229, 239);
+  border-radius: 10px ;
+  margin-bottom: 10px;
+}
+
+.scheduler-button {
+  position: bottom;
+  width:100%;
+  padding: 10px;
+  background-color: #8ca0b5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.scheduler-button:hover {
+  background-color: #0056b3;
+}
+
+.scheduler-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.scheduler-list-item {
+  margin-bottom: 10px;
+}
+
+.scheduler-patient {
+  font-weight: bold;
+}
+
+.scheduler-time {
+  font-style: italic;
+}
+
+/* Nav.css */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  background-color: #d0b3b3;
+  z-index: 9999;
+  box-shadow: 2px 0px 6px rgba(197, 51, 51, 0.1);
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  width: 100%;
+  background-color: #32325c;
+  border-bottom: 1px solid #9292be;
+}
+
+.nav__logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+.nav__logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ede1e1;
+}
+
+.nav-wrapper {
+  display: flex;
+}
+
+.sidebardoc {
+  width: 240px;
+  height: 750px;
+  background-color: #32325c;
+}
+
+.welcome-intro {
+  padding: 12px;
+  
+  background-color: #e8dddd;
+  font-family: "Arial", sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  margin-left: 25%;
+  margin-top: 20%;
+  margin-bottom: 20%;
+  color: #5a155d;
+  animation: fade-in 1s ease-in-out forwards;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
 

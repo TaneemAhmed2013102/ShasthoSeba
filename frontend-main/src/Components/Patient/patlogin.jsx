@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import Navbar from "./navbar";
-import Footer from "./footer";
-import { baseUrl } from "../links";
+import PatNavbar from "./patnav";
+import Footer from "../footer";
+import { baseUrl } from "../../links";
 
-function Login() {
+function PatLogin() {
   const userToken = localStorage.getItem("userToken");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ function Login() {
       return;
     }
     console.log("HI");
-    let response = await axios.post(baseUrl + "/auth/login", {
+    let response = await axios.post(baseUrl + "/auth/patient/login", {
       email: email,
       password: password,
     });
@@ -52,12 +52,12 @@ function Login() {
   };
 
   if (loggedIn) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/Patient/patientDash" replace />;
   }
 
-  return (
+    return (
     <>
-      <Navbar />
+      <PatNavbar />
       <div
         className="p-5 container shadow-sm rounded" id = "contid" style={{marginTop:"100px"}}
       >
@@ -65,7 +65,7 @@ function Login() {
           <h1 className="text-center pb-3" id = "txtcolr"><font face = "Margadeth">Login</font></h1>
           <div className="d-flex p-2 h-100 align-items-center">
             <img
-              src={require("../Photos/Login.jpg")}
+              src={require("../../Photos/Login.jpg")}
               alt="login"
               width={"45%"}
               height={"45%"}
@@ -112,7 +112,7 @@ function Login() {
                 </div>
                 <p className="mt-4 text-center">
                   Don't have an account?{" "}
-                  <a href="/register" className="text-decoration-none">
+                  <a href="/Patient/patientReg" className="text-decoration-none">
                     <strong className="text-success">Register</strong>
                   </a>
                 </p>
@@ -126,4 +126,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default PatLogin;

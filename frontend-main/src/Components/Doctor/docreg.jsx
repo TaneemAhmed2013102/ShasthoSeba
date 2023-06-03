@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import Navbar from "./navbar";
-import Footer from "./footer";
-import { baseUrl } from "../links";
+import Navbar from "../navbar";
+import Footer from "../footer";
+import { baseUrl } from "../../links";
 
-function Register() {
+function DocRegister() {
   const userToken = localStorage.getItem("userToken");
-  const [hospitalname, setHospitalname] = useState("");
-  const [location, setLocationname] = useState("");
+  const [doctorsname, setDoctorsname] = useState("");
+  const [department, setDepartmentname] = useState("");
+  const [degree, setDegree] = useState("");
+  const [hospital, setHospitalname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -27,14 +29,25 @@ function Register() {
     const digitCheck = /\d/;
     const specialCharCheck = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-    if (!hospitalname) {
+    if (!doctorsname) {
       setColor("danger");
-      setStatus("Hospital Name can't be empty");
+      setStatus("Doctors Name can't be empty");
       return;
     }
-    if (!location) {
+    if (!degree) {
         setColor("danger");
-        setStatus("Location can't be empty");
+        setStatus("Degree can't be empty");
+        return;
+      }
+
+    if (!department) {
+      setColor("danger");
+      setStatus("Department Name can't be empty");
+      return;
+    }
+    if (!hospital) {
+        setColor("danger");
+        setStatus("Hospital can't be empty");
         return;
       }
 
@@ -92,9 +105,11 @@ function Register() {
       return;
     }
 
-    let response = await axios.post(baseUrl + "/auth/register", {
-      hospitalname: hospitalname,
-      location: location,
+    let response = await axios.post(baseUrl + "/auth/doctor/register", {
+      doctorsname: doctorsname,
+      department: department,
+      degree:degree,
+      hospital: hospital,
       email: email,
       password: password,
     });
@@ -124,10 +139,10 @@ function Register() {
         className="p-5 container shadow-sm rounded" id = "contid" style={{marginTop:"100px"}}
       >
         <div>
-          <h1 className="text-center pb-3"id = "txtcolr"><font face = "Margadeth">Hospital Registration</font></h1>
+          <h1 className="text-center pb-3"id = "txtcolr"><font face = "Margadeth">Doctor Registration </font></h1>
           <div className="d-flex p-2 h-100 align-items-center">
             <img
-              src={require("../Photos/Register.jpg")}
+              src={require("../../Photos/Register.jpg")}
               alt="register"
               width={"40%"}
               height={"40%"}
@@ -137,26 +152,50 @@ function Register() {
                 <div className="form-floating mb-3">
                   <input
                     type="text"
-                    value={hospitalname}
-                    onInput={(e) => setHospitalname(e.target.value)}
+                    value={doctorsname}
+                    onInput={(e) => setDoctorsname(e.target.value)}
                     onChange={(e) => setStatus("")}
                     className="form-control"
-                    id="hospitalNameInput"
-                    placeholder="Hospital Name"
+                    id="doctorsNameInput"
+                    placeholder="Doctor Name"
                   ></input>
-                  <label for="hospitalNameInput">Hospital Name</label>
+                  <label for="doctorsNameInput">Doctor Name</label>
                 </div>
                 <div className="form-floating mb-3">
                   <input
                     type="text"
-                    value={location}
-                    onInput={(e) => setLocationname(e.target.value)}
+                    value={degree}
+                    onInput={(e) => setDegree(e.target.value)}
                     onChange={(e) => setStatus("")}
                     className="form-control"
-                    id="locationInput"
-                    placeholder="Location"
+                    id="degreeInput"
+                    placeholder="Degree"
                   ></input>
-                  <label for="locationInput">Location</label>
+                  <label for="degreeInput">Degree</label>
+                </div>
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    value={department}
+                    onInput={(e) => setDepartmentname(e.target.value)}
+                    onChange={(e) => setStatus("")}
+                    className="form-control"
+                    id="departmentNameInput"
+                    placeholder="Department Name"
+                  ></input>
+                  <label for="departmentNameInput">Department Name</label>
+                </div>
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    value={hospital}
+                    onInput={(e) => setHospitalname(e.target.value)}
+                    onChange={(e) => setStatus("")}
+                    className="form-control"
+                    id="hospitalInput"
+                    placeholder="Hospital"
+                  ></input>
+                  <label for="hospitalInput">Hospital</label>
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -211,7 +250,7 @@ function Register() {
                 {/* NEED TO EDIT */}
                 <p className="mt-4 text-center">
                   Already have an account?{" "}
-                  <a href="/login" className="text-decoration-none">
+                  <a href="/Doctor/doclogin" className="text-decoration-none">
                     <strong className="text-success">Log in</strong>
                   </a>
                 </p>
@@ -225,4 +264,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default DocRegister;

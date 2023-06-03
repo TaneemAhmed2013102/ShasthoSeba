@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import HOSNavbar from "./hospitalNav";
-import Footer from "./footer";
-import Item from "./item";
-import { baseUrl } from "../links";
-import SideBar from "./sidebar";
+import PatNavbar from "./patnav";
+import Footer from "../footer";
+import { baseUrl } from "../../links";
+import PatSideBar from "./patSide";
 import {useParams} from "react-router-dom"
+import PatItem from "./patitem";
 
-function PatientsList() {
+function PatList() {
 
   const {doctor, department} = useParams();
   const [listOfPatients, setListOfPatients] = useState([]);
@@ -25,14 +25,14 @@ function PatientsList() {
 
   return (
     <>
-      <HOSNavbar />
+      <PatNavbar />
       <div className="container bg-light" style={{ marginTop: "100px" }}>
         <div className="row">
           <div className="col-3 border-end border-2">
-            {<SideBar doctor = {doctor} department = {department}/>}
+            {<PatSideBar doctor = {doctor} department = {department}/>}
           </div>
           <div className="col-9">
-            {listOfPatients.map((e) => <Item list={e} />)}
+            {listOfPatients.map((e) => <PatItem list={e} />)}
           </div>
         </div>
       </div>
@@ -41,4 +41,4 @@ function PatientsList() {
   );
 }
 
-export default PatientsList;
+export default PatList;

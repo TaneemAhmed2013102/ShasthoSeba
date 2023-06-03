@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { imageUrl } from "../links";
+import { imageUrl } from "../../links";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserDoctor, faTag } from "@fortawesome/free-solid-svg-icons";
 
-function Item(props) {
+function DocItem(props) {
    console.log(props);
   return (
     <>
-    <a href={((props.list.treated === "No") ? `/details/${props.list.token}` : '#')} className="text-decoration-none">
+    <a href={((props.list.treated === "No") ? `/docPortal/${props.list.token}` : '#')} className="text-decoration-none">
       <div className={"card mb-3 " + ((props.list.treated === "No") ? "" : "opacity-25")} >
         <div className="row g-0">
           <div className="col-4 border-end border-2">
@@ -46,4 +46,4 @@ function Item(props) {
   );
 }
 
-export default Item;
+export default DocItem;

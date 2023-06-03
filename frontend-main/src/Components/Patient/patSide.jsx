@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserDoctor, faTag } from "@fortawesome/free-solid-svg-icons";
-import { baseUrl } from "../links";
+import { baseUrl } from "../../links";
 
-function SideBar(props) {
+function PatSideBar(props) {
   const [listOfDoctors, setListOfDoctors] = useState([]);
   const [listOfDepartment, setListOfDepartment] = useState([]);
   let doctor = props.doctor;
@@ -41,7 +41,7 @@ function SideBar(props) {
                   } else {
                     doctor = "all"; 
                   }
-                  window.location.href = `/patients/${doctor}/${department}`;
+                  window.location.href = `/Patients/patportal/${doctor}/${department}`;
                 }} type="button" className={"btn btn-outline-dark ms-2 mb-2 " + ((e.slug === props.doctor) ? "active" : "")}>
                   {e.title}
                 </button>
@@ -63,7 +63,7 @@ function SideBar(props) {
                     } else {
                       department = "all"; 
                     }
-                    window.location.href = `/patients/${doctor}/${department}`;
+                    window.location.href = `/Patients/patportal/${doctor}/${department}`;
                   }}
                   className={"list-group-item p-3 rounded " + ((e.slug === props.department) ? "list-group-item-primary" : "bg-light")}
                   style={{ cursor: "pointer"}}
@@ -76,4 +76,4 @@ function SideBar(props) {
   );
 }
 
-export default SideBar;
+export default PatSideBar;

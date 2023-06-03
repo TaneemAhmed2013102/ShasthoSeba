@@ -34,24 +34,19 @@ function Navbar() {
         </a>
         <ul className="navbar-nav me-auto mb-lg-0">
           <li className="nav-item me-1">
-            <a href={`/ads/all/all`}>
+            <a href={`/hospitals`}>
               <button className="btn btn-light btn-sm">Hospitals</button>
             </a>
           </li>
         </ul>
         <div className="d-flex align-items-center">
           <div className="nav-item me-3">
-            <a className={"text-white text-decoration-none " + myAccount} href="/dashboard">
-              My Account
-            </a>
-          </div>
-          <div className="nav-item me-3">
-            <a className={"text-white text-decoration-none " + login} href="/login">
+            <a className={"text-white text-decoration-none " + login} href="/hdplogin">
               Login
             </a>
           </div>
-          <a href="/admin">
-            <button className="btn btn-lg btn-light">Inquiry</button>
+          <a href="/dashboard">
+            <button className="btn btn-lg btn-light">My Portal</button>
           </a>
         </div>
       </div>

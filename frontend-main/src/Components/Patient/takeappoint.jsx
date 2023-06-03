@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Footer from "./footer";
+import Footer from "../footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserDoctor, faTag } from "@fortawesome/free-solid-svg-icons";
-import { baseUrl } from "../links";
+import { baseUrl } from "../../links";
 import {Navigate} from "react-router-dom";
-import HOSNavbar from "./hospitalNav";
+import PatNavbar from "./patnav";
 
-function Appoint(props) {
+function TakeAppoint(props) {
   let userToken = localStorage.getItem("userToken");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -24,18 +24,7 @@ function Appoint(props) {
   const [details, setDetails] = useState({});
   const [image, setImage] = useState('');
   const [patientPosted, setPatientPosted] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      let response = await axios.get(baseUrl + "/user/details", {
-        headers: { userToken: userToken },
-      });
-      setDetails(response["data"]["data"]["details"]);
-      // console.log(response["data"]);
-    }
-    fetchData();
-  }, []);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -128,7 +117,7 @@ function Appoint(props) {
   };
 
   if (patientPosted) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/Patient/patientDash" replace />;
   }
 
   const handleImageUpload = async (event) => {
@@ -153,7 +142,7 @@ function Appoint(props) {
 
   return (
     <>
-      <HOSNavbar />
+      <PatNavbar />
       <div className="container bg-light" style={{ marginTop: "80px" }}>
         <div class="d-flex pt-3">
           <div class="me-auto p-2">
@@ -294,11 +283,6 @@ function Appoint(props) {
                   class="form-control mb-2"
                 ></input>
               </div>
-              <hr></hr>
-              <h5>Appointed by:</h5>
-              <h6 className="required">{details.hospitalname}</h6>
-              <h6 className="required">{details.location}</h6>
-              
               <div class="form-check mb-3 mt-5">
                 <input
                   class="form-check-input"
@@ -325,7 +309,7 @@ function Appoint(props) {
                   type="submit"
                   className="ms-auto btn-lg mb-3 btn-success"
                 >
-                  Add Patient
+                  Add
                 </button>
               </div>
             </div>
@@ -337,4 +321,4 @@ function Appoint(props) {
   );
 }
 
-export default Appoint;
+export default TakeAppoint;

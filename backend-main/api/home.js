@@ -38,6 +38,39 @@ router.get('/hospitals', async (req, res) => {
     }
 });
 
+router.get('/regestered/hospitals', async (req, res) => {
+    let con = connection();
+
+    try {
+        let query = `SELECT * FROM users`
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send({
+                'data': {
+                    'code': 'LIST_LOADED',
+                    'details': {
+                        'items': result,
+                        'itemsCount': result.length,
+                    },
+                },
+                'error': {}
+            })
+        });
+    } catch (error) {
+        res.send({
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
+
 router.get('/hospitals/popular', async (req, res) => {
     let con = connection();
 
@@ -170,7 +203,7 @@ router.get('/departments', async (req, res) => {
 });
 
 
-router.post('/appointments_list', async (req, res) => {
+router.post('/patients', async (req, res) => {
     let con = connection();
     let department = req.body.department;
     let doctor = req.body.doctor;
@@ -198,7 +231,7 @@ router.post('/appointments_list', async (req, res) => {
         }
 
         let token = utils.makeToken("Appointments"); 
-        query = `SELECT * FROM appointments WHERE treated='No'${doctorQuery}${departmentQuery} ORDER BY createdAt DESC`;
+        query = `SELECT * FROM appointments WHERE treated='No' ${doctorQuery}${departmentQuery} ORDER BY createdAt ASC`;
 
         con.query(query, (err, result) => {
             if (err) {
@@ -227,5 +260,89 @@ router.post('/appointments_list', async (req, res) => {
         });
     }
 });
+
+router.get('/appointments/patPortal/:postToken', async(req, res) => {
+    let con = connection();
+    let postToken = req.params.postToken;
+    try {
+        let query = `SELECT * FROM (SELECT appointments.name, appointments.token AS postToken, appointments.description, appointments.address, appointments.nid,  appointments.age, appointments.doctorSlug, appointments.departmentSlug, appointments.createdBy, appointments.phoneNumber, appointments.email, appointments.image, appointments.isMale, appointments.isFemale , appointments.createdAt, patientusers.fullname 
+                    FROM appointments 
+                    INNER JOIN patientusers ON appointments.createdBy=patientusers.userToken) AS appointmentsDetails WHERE postToken='${postToken}'`;
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            if (result.length === 1) {
+                res.send({
+                    'data': {
+                        'code': 'LIST_LOADED',
+                        'details': result[0],
+                    },
+                    'error': {}
+                });
+            } else {
+                res.send({
+                    'data': {},
+                    'error': {
+                        'errorCode': 'Invalid  Token',
+                        'errorDetails': 'No data found with the given token',
+                    }
+                });
+            }
+        });
+    } catch (error) {
+        res.send({
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
+
+router.get('/appointments/details/:postToken', async(req, res) => {
+    let con = connection();
+    let postToken = req.params.postToken;
+    try {
+        let query = `SELECT * FROM (SELECT appointments.name, appointments.token AS postToken, appointments.description, appointments.address, appointments.nid,  appointments.age, appointments.doctorSlug, appointments.departmentSlug, appointments.createdBy, appointments.phoneNumber, appointments.email, appointments.image, appointments.isMale, appointments.isFemale , appointments.createdAt, users.hospitalname, users.location 
+                    FROM appointments 
+                    INNER JOIN users ON appointments.createdBy=users.userToken) AS appointmentsDetails WHERE postToken='${postToken}'`;
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            if (result.length === 1) {
+                res.send({
+                    'data': {
+                        'code': 'LIST_LOADED',
+                        'details': result[0],
+                    },
+                    'error': {}
+                });
+            } else {
+                res.send({
+                    'data': {},
+                    'error': {
+                        'errorCode': 'Invalid  Token',
+                        'errorDetails': 'No data found with the given token',
+                    }
+                });
+            }
+        });
+    } catch (error) {
+        res.send({
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
 
 module.exports = router;

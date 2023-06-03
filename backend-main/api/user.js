@@ -43,7 +43,7 @@ router.post('/patients/new', async (req, res) => {
         }
 
         let token = utils.makeToken("Appointments"); 
-        query = `INSERT INTO appointments (token, name , age, email, address, description, image, nid, isMale, isFemale, phoneNumber, doctorSlug, departmentSlug, createdBy, treated) VALUES('${token}', '${name}', '${age}', '${email}', '${address}', '${description}', '${newImageName}', '${nid}', '${isMale}', '${isFemale}', '${phoneNumber}', '${doctorSlug}', '${departmentSlug}', '${createdBy}', 'No')`;
+        query = `INSERT INTO appointments (token, name , age, email, address, description, image, nid, isMale, isFemale, phoneNumber, doctorSlug, departmentSlug, createdBy, treated) VALUES('${token}', '${name}', '${age}', '${email}', '${address}', '${description}', '${newImageName}', '${nid}', ${isMale}, ${isFemale}, '${phoneNumber}', '${doctorSlug}', '${departmentSlug}', '${createdBy}', 'No')`;
         con.query(query, (err, result) => {
             if (err) {
                 throw err;
@@ -83,7 +83,7 @@ router.get('/patients', async (req, res) => {
         });
 
         let token = utils.makeToken("Appointments"); 
-        query = `SELECT * FROM appointments WHERE createdBy='${createdBy}' ORDER BY createdAt DESC`;
+        query = `SELECT * FROM appointments WHERE createdBy='${createdBy}' AND treated = "No"  ORDER BY createdAt DESC`;
         con.query(query, (err, result) => {
             if (err) {
                 throw err;
@@ -180,5 +180,240 @@ router.get('/details', async (req, res) => {
     }
 });
 
+router.post('/prescription/new', async (req, res) => {
+    let con = connection();
+    let name = req.body.name;
+    let image = req.body.image;
 
+    try {
+        let query = "CREATE TABLE IF NOT EXISTS prescriptions (token VARCHAR(255), name VARCHAR(255),  image VARCHAR(255))";
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            console.log("Prescription Table Accessed");
+        });
+
+        let uploadDir = path.join(SystemVars.DIR_NAME, "images");
+        let newImageName = "";
+        if (fs.existsSync(uploadDir)) {
+            let imageToken = utils.makeToken("Image");
+            let saveImage = ba64.writeImageSync(path.join(uploadDir, imageToken), image);
+            let extension = image.split(';')[0].split('/')[1];
+            newImageName = imageToken + '.' + extension;
+        }
+
+        let token = utils.makeToken("Prescriptions"); 
+        query = `INSERT INTO prescriptions (token, name , image) VALUES('${token}', '${name}', '${newImageName}')`;
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send({
+                'data': {
+                    'code': 'INSERTION_SUCCESSFUL',
+                    'details': 'Prescription Posted!',
+                },
+                'error': {}
+            });
+        });
+    } catch (error) {
+        res.send({
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
+
+router.post('/reports/new', async (req, res) => {
+    let con = connection();
+    let name = req.body.name;
+    let image = req.body.image;
+
+    try {
+        let query = "CREATE TABLE IF NOT EXISTS reports (token VARCHAR(255), name VARCHAR(255),  image VARCHAR(255))";
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            console.log("Reports Table Accessed");
+        });
+
+        let uploadDir = path.join(SystemVars.DIR_NAME, "images");
+        let newImageName = "";
+        if (fs.existsSync(uploadDir)) {
+            let imageToken = utils.makeToken("Image");
+            let saveImage = ba64.writeImageSync(path.join(uploadDir, imageToken), image);
+            let extension = image.split(';')[0].split('/')[1];
+            newImageName = imageToken + '.' + extension;
+        }
+
+        let token = utils.makeToken("Reports"); 
+        query = `INSERT INTO reports (token, name , image) VALUES('${token}', '${name}', '${newImageName}')`;
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send({
+                'data': {
+                    'code': 'INSERTION_SUCCESSFUL',
+                    'details': 'Reports Posted!',
+                },
+                'error': {}
+            });
+        });
+    } catch (error) {
+        res.send({
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
+router.get('/doctor/details', async (req, res) => {
+    let con = connection();
+    let doctorsname = req.headers.doctorsname;
+
+    // console.log(req.headers);
+    try {
+        let query = `SELECT doctorusers.doctorsname, doctorusers.degree, doctorusers.department, doctorusers.hospital, doctorusers.email, doctorusers.userToken, (SELECT COUNT(*) FROM appointments WHERE doctorSlug='${doctorsname}' AND treated='No') as totalPatients, (SELECT COUNT(*) FROM appointments WHERE doctorSlug='${doctorsname}' AND treated='Yes') as treatedPatients FROM doctorusers WHERE doctorsname='${doctorsname}'`;
+        con.query(query, (err, result) => {
+            
+            console.log(result);
+
+            if (err) {
+                throw err;
+            }
+
+            
+            res.send({
+                'data': {
+                    'code': 'LIST_LOADED',
+                    'details': result[0],
+                },
+                'error': {}
+            });
+        });
+    } catch (error) {
+        // console.log(error);
+        res.send({      
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
+router.get('/doctor/details', async (req, res) => {
+    let con = connection();
+    let doctorsname = req.headers.doctorsname;
+  
+    try {
+      let query = `SELECT doctorusers.doctorsname, doctorusers.degree, doctorusers.department, doctorusers.hospital, doctorusers.email, doctorusers.userToken,
+        (SELECT COUNT(*) FROM appointments WHERE doctorSlug = '${doctorsname}' AND treated = 'No') AS untreatedPatients,
+        (SELECT COUNT(*) FROM appointments WHERE doctorSlug = '${doctorsname}' AND treated = 'Yes') AS treatedPatients
+        FROM doctorusers WHERE doctorsname = '${doctorsname}'`;
+  
+      con.query(query, (err, result) => {
+        if (err) {
+          throw err;
+        }
+  
+        res.send({
+          'data': {
+            'code': 'LIST_LOADED',
+            'details': result[0],
+          },
+          'error': {}
+        });
+      });
+    } catch (error) {
+      res.send({      
+        'data': {},
+        'error': {
+          'errorCode': 'Query failed at try catch',
+          'errorDetails': error,
+        }
+      });
+    }
+  });
+  
+router.get('/doctor/appointments', async (req, res) => {
+    let con = connection();
+    let doctorsname = req.headers.doctorsname;
+  
+    try {
+      let query = `CREATE TABLE IF NOT EXISTS appointments (
+        token VARCHAR(255),
+        name VARCHAR(255),
+        age INT(255),
+        email VARCHAR(255),
+        address VARCHAR(255),
+        description VARCHAR(255),
+        image VARCHAR(255),
+        nid INT(255),
+        isMale BOOL,
+        isFemale BOOL,
+        phoneNumber VARCHAR(255),
+        doctorSlug VARCHAR(255),
+        departmentSlug VARCHAR(255),
+        createdBy VARCHAR(255),
+        treated VARCHAR(255),
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`;
+  
+      con.query(query, (err, result) => {
+        if (err) {
+          throw err;
+        }
+  
+        console.log("Appointments Table Accessed");
+      });
+  
+      query = `SELECT * FROM appointments
+               JOIN doctorusers ON appointments.doctorSlug = doctorusers.doctorsname
+               WHERE doctorusers.doctorsname = '${doctorsname}' AND treated = "No"
+               ORDER BY createdAt ASC`;
+  
+               con.query(query, (err, result) => {
+                if (err) {
+                  throw err;
+                }
+          
+        res.send({
+          'data': {
+            'code': 'LIST_LOADED',
+            'details': {
+              'items': result,
+              'itemsCount': result.length,
+            },
+          },
+          'error': {}
+        });
+      });
+  
+    } catch (error) {
+      res.send({
+        'data': {},
+        'error': {
+          'errorCode': 'Query failed at try catch',
+          'errorDetails': error,
+        }
+      });
+    }
+  });
+  
 module.exports = router;
