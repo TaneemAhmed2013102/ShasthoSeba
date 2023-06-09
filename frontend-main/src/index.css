@@ -425,6 +425,72 @@ h2 {
   justify-content: center;
 }
 
+.containeruni {
+  margin-top: 80px;
+}
+
+.h1uni {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.doctor-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.list {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.imguni {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.h2uni {
+  margin: 0;
+  text-align: center;
+}
+
+.puni {
+  margin: 5px 0;
+  text-align: center;
+}
+
+.puniii {
+  margin: 5px 0;
+  text-align: center;
+  color: green;
+}
+
+.punii {
+  margin: 5px 0;
+  text-align: center;
+  color: red;
+}
+
+.sorao{
+  margin-left: 300px;
+}
 
 
 

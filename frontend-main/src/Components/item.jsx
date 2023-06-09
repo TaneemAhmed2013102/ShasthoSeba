@@ -24,6 +24,7 @@ function Item(props) {
             <div className="card-body pb-1">
               <h3 className="card-title text-dark">{props.list.name}</h3>
               <h3 className="card-title text-dark">Age: {props.list.age}</h3>
+              <h3 className="card-title text-dark">{props.list.isMale ? "Male" : "Female"}</h3>
               <div className="d-flex">
                 <p className="card-text me-3">
                   <small className="text-muted">

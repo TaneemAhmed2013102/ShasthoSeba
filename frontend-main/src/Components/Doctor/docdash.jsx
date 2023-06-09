@@ -31,7 +31,7 @@ const DocDash = () => {
               <a href="/Doctor/myappointments">My Patients</a>
             </li>
             <li className="nav__menu-item">
-              <a href="/report">Reports</a>
+              <a href="/Doctor/DoctReport">Reports</a>
             </li>
             <li className="nav__menu-item">
               <a href="/aphistory">Appointment History</a>

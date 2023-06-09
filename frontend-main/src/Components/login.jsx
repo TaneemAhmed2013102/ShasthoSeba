@@ -59,7 +59,7 @@ function Login() {
     <>
       <Navbar />
       <div
-        className="p-5 container shadow-sm rounded" id = "contid" style={{marginTop:"100px"}}
+        className="p-5 container shadow-sm rounded" id = "contid" style={{marginTop:"130px"}}
       >
         <div>
           <h1 className="text-center pb-3" id = "txtcolr"><font face = "Margadeth">Login</font></h1>

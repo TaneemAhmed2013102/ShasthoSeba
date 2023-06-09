@@ -281,6 +281,47 @@ router.post('/reports/new', async (req, res) => {
     }
 });
 
+router.get('/reports/:name', async (req, res) => {
+    let con = connection();
+    let name = req.params.name;
+
+    // console.log(req.headers);
+    try {
+        let query = `SELECT * from reports WHERE name= '${name}'`;
+        con.query(query, (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            if (result.length === 1) {
+                res.send({
+                    'data': {
+                        'code': 'LIST_LOADED',
+                        'details': result[0],
+                    },
+                    'error': {}
+                });
+            } else {
+                res.send({
+                    'data': {},
+                    'error': {
+                        'errorCode': 'Invalid  Token',
+                        'errorDetails': 'No data found with the given token',
+                    }
+                });
+            }
+        });
+    } catch (error) {
+        res.send({
+            'data': {},
+            'error': {
+                'errorCode': 'Query failed at try catch',
+                'errorDetails': error,
+            }
+        });
+    }
+});
+
 router.get('/doctor/details', async (req, res) => {
     let con = connection();
     let doctorsname = req.headers.doctorsname;
@@ -415,5 +456,9 @@ router.get('/doctor/appointments', async (req, res) => {
       });
     }
   });
+
+
+
+
   
 module.exports = router;

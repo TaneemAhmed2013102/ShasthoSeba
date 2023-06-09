@@ -21,7 +21,7 @@ const DocNavbar = () => {
             <Link className="nav-link" to="/Doctor/prescription">Scheduler</Link>
           </li>
           <li className="nav-item me-1">
-            <Link className="nav-link" to="/Doctor/reports">Report</Link>
+            <Link className="nav-link" to="/Doctor/DocReports">Report</Link>
           </li>
         </ul>
               <a href="/Doctor/postpatient">

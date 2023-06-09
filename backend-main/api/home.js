@@ -263,7 +263,7 @@ router.post('/patients', async (req, res) => {
 
 router.get('/appointments/patPortal/:postToken', async(req, res) => {
     let con = connection();
-    let postToken = req.params.postToken;
+    let postToken = req.params.postToken; 
     try {
         let query = `SELECT * FROM (SELECT appointments.name, appointments.token AS postToken, appointments.description, appointments.address, appointments.nid,  appointments.age, appointments.doctorSlug, appointments.departmentSlug, appointments.createdBy, appointments.phoneNumber, appointments.email, appointments.image, appointments.isMale, appointments.isFemale , appointments.createdAt, patientusers.fullname 
                     FROM appointments 

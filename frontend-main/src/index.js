@@ -38,6 +38,8 @@ import PatDescription from './Components/Patient/description';
 import Hospital from './Components/hospitals';
 import DocNavbar from './Components/Doctor/docnav';
 import DocAppointments from './Components/Doctor/myappointments';
+import Lesgoo from './Components/united';
+import DoctReport from './Components/Doctor/DoctReport';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -62,6 +64,7 @@ ReactDOM.render(
       <Route path="/Doctor/patientpage" element={<PatientPage />} />
       <Route path="/Doctor/docnav" element={<DocNavbar />} />
       <Route path="/Doctor/myappointments" element={<DocAppointments />} />
+      <Route path="/Doctor/DoctReport" element={<DoctReport />} />
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/register" element={<Register />} />
@@ -75,6 +78,7 @@ ReactDOM.render(
       <Route path="/details/:postToken" element={<Description />} />
       <Route path="/appoint" element={<Appoint />} />
       <Route path="/verifyemail/:verifyToken" element={<VerifyEmail />} />
+      <Route path="/united" element={<Lesgoo />} />
     </Routes>
   </BrowserRouter>,
    document.getElementById('root')

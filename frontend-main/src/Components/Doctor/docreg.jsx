@@ -136,16 +136,16 @@ function DocRegister() {
     <>
       <Navbar />
       <div
-        className="p-5 container shadow-sm rounded" id = "contid" style={{marginTop:"100px"}}
+        className="p-5 container shadow-sm rounded" id = "contid" style={{marginTop:"150px"}}
       >
         <div>
           <h1 className="text-center pb-3"id = "txtcolr"><font face = "Margadeth">Doctor Registration </font></h1>
           <div className="d-flex p-2 h-100 align-items-center">
             <img
-              src={require("../../Photos/Register.jpg")}
+              src={require("../../Photos/doctor.PNG")}
               alt="register"
-              width={"40%"}
-              height={"40%"}
+              width={"30%"}
+              height={"30%"}
             ></img>
             <form onSubmit={handleSubmit} className="w-100">
               <div>

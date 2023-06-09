@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import Lesgoo from "../united";
 
 const PatDashboard = () => {
 
@@ -52,6 +53,9 @@ return(
                 Log Out
               </button>
         </div>
+    </div>
+    <div className="sorao">
+    <Lesgoo />
     </div>
     </>
 )
